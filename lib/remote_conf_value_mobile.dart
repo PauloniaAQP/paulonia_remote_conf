@@ -1,7 +1,6 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
-class PRemoteConfigValueService{
-
+class PRemoteConfigValueService {
   static bool asBool(RemoteConfigValue value) => value.asBool();
 
   static double asDouble(RemoteConfigValue value) => value.asDouble();
@@ -9,5 +8,4 @@ class PRemoteConfigValueService{
   static int asInt(RemoteConfigValue value) => value.asInt();
 
   static String asString(RemoteConfigValue value) => value.asString();
-
 }

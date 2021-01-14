@@ -1,8 +1,7 @@
 import 'package:paulonia_remote_conf/remote_conf_value_mobile.dart'
     if (dart.library.html) 'package:paulonia_remote_conf/remote_conf_value_web.dart';
 
-class PRemoteConfigValue{
-
+class PRemoteConfigValue {
   final _value;
 
   PRemoteConfigValue(
@@ -16,5 +15,4 @@ class PRemoteConfigValue{
   int asInt() => PRemoteConfigValueService.asInt(_value);
 
   String asString() => PRemoteConfigValueService.asString(_value);
-
 }

@@ -3,8 +3,7 @@ import 'package:paulonia_remote_conf/constants.dart';
 import 'package:paulonia_remote_conf/remote_conf_value.dart';
 import 'package:paulonia_utils/paulonia_utils.dart';
 
-class PauloniaRemoteConfService{
-
+class PauloniaRemoteConfService {
   /// Remote configuration instance
   static RemoteConfig _remoteConfig;
 
@@ -21,18 +20,15 @@ class PauloniaRemoteConfService{
   /// app is running on release.
   /// Set [expirationTimeInHours] with the time that the functions stores the values
   /// in cache.
-  static Future<void> initRemoteConf(
-    Map<String, dynamic> defaultValues, {
-    int expirationTimeInHours = PauloniaRemoteConfConstants
-            .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS
-  }) async{
+  static Future<void> initRemoteConf(Map<String, dynamic> defaultValues,
+      {int expirationTimeInHours = PauloniaRemoteConfConstants
+          .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS}) async {
     _remoteConfig = await RemoteConfig.instance;
     _defaultValues = defaultValues;
     await _remoteConfig.setDefaults(_defaultValues);
-    if(PUtils.isOnRelease() && (await PUtils.checkNetwork())){
+    if (PUtils.isOnRelease() && (await PUtils.checkNetwork())) {
       await _remoteConfig.fetch(
-          expiration: Duration(hours: expirationTimeInHours)
-      );
+          expiration: Duration(hours: expirationTimeInHours));
     }
     await _remoteConfig.activateFetched();
   }
@@ -40,9 +36,9 @@ class PauloniaRemoteConfService{
   /// Get the value of [keyName] with [rcType]
   ///
   /// This function converts the value in the desire type.
-  static dynamic get(String keyName, PRCType rcType){
-    if(PUtils.isOnTest()) return _defaultValues[keyName];
-    switch(rcType){
+  static dynamic get(String keyName, PRCType rcType) {
+    if (PUtils.isOnTest()) return _defaultValues[keyName];
+    switch (rcType) {
       case PRCType.STRING:
         return _remoteConfig.getString(keyName);
       case PRCType.INT:
@@ -59,8 +55,7 @@ class PauloniaRemoteConfService{
   /// Get the value in [keyName]
   ///
   /// This function returns the value without any conversion.
-  static PRemoteConfigValue getValue(String keyName){
+  static PRemoteConfigValue getValue(String keyName) {
     return PRemoteConfigValue(_remoteConfig.getValue(keyName));
   }
-
 }
