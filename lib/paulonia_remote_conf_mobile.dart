@@ -1,7 +1,7 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:paulonia_remote_conf/constants.dart';
 import 'package:paulonia_remote_conf/remote_conf_value.dart';
-import 'package:paulonia_remote_conf/utils.dart';
+import 'package:paulonia_utils/paulonia_utils.dart';
 
 class PauloniaRemoteConfService {
   /// Remote configuration instance
@@ -26,7 +26,7 @@ class PauloniaRemoteConfService {
     _remoteConfig = await RemoteConfig.instance;
     _defaultValues = defaultValues;
     await _remoteConfig.setDefaults(_defaultValues);
-    if (RCUtils.isOnRelease() && (await RCUtils.checkNetwork())) {
+    if (PUtils.isOnRelease() && (await PUtils.checkNetwork())) {
       await _remoteConfig.fetch(
           expiration: Duration(hours: expirationTimeInHours));
     }
@@ -37,7 +37,7 @@ class PauloniaRemoteConfService {
   ///
   /// This function converts the value in the desire type.
   static dynamic get(String keyName, PRCType rcType) {
-    if (RCUtils.isOnTest()) return _defaultValues[keyName];
+    if (PUtils.isOnTest()) return _defaultValues[keyName];
     switch (rcType) {
       case PRCType.STRING:
         return _remoteConfig.getString(keyName);
