@@ -12,7 +12,10 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_remote_config: ^0.6.0
-  paulonia_utils: ^0.1.0
+  paulonia_utils: 
+    git:
+       url: https://github.com/PauloniaAQP/paulonia_utils
+       ref: connectivity_down
   firebase: ^7.3.3
 
 dev_dependencies:
