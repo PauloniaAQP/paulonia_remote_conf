@@ -1,5 +1,6 @@
 library paulonia_remote_conf;
 
+import 'package:flutter/cupertino.dart';
 import 'package:paulonia_remote_conf/constants.dart';
 import 'package:paulonia_remote_conf/remote_conf_value.dart';
 import 'package:paulonia_remote_conf/paulonia_remote_conf_mobile.dart'
@@ -36,5 +37,10 @@ class PauloniaRemoteConf {
   /// This function returns the value without any conversion.
   static PRemoteConfigValue getValue(String keyName) {
     return PauloniaRemoteConfService.getValue(keyName);
+  }
+
+  @visibleForTesting
+  static void initRemoteConfForTest(Map<String, dynamic> defaultValues){
+    PauloniaRemoteConfService.initRemoteConfForTest(defaultValues);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:paulonia_remote_conf/constants.dart';
 import 'package:paulonia_remote_conf/remote_conf_value.dart';
 import 'package:paulonia_utils/paulonia_utils.dart';
@@ -60,7 +59,6 @@ class PauloniaRemoteConfService {
     return PRemoteConfigValue(_remoteConfig.getValue(keyName));
   }
 
-  @visibleForTesting
   static void initRemoteConfForTest(Map<String, dynamic> defaultValues){
     _defaultValues = defaultValues;
   }
