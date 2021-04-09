@@ -19,6 +19,7 @@ class PauloniaRemoteConfService {
   /// [defaultValues]. The function fetch the values from the server if the
   /// app is running on release.
   /// In web, [expirationTimeInHours] is useless.
+  /// In web, [fetchTimeout] is useless.
   static Future<void> initRemoteConf(
     Map<String, dynamic> defaultValues, {
     int expirationTimeInHours = PauloniaRemoteConfConstants.REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS,

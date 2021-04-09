@@ -17,6 +17,8 @@ class PauloniaRemoteConf {
   /// app is running on release.
   /// Set [expirationTimeInHours] with the time that the functions stores the values
   /// in cache (only for mobile).
+  /// Set [fetchTimeoutInSeconds] with the time that the functions will wait if
+  /// there is a network problem during fetch.
   static Future<void> init(
     Map<String, dynamic> defaultValues, {
     int expirationTimeInHours = PauloniaRemoteConfConstants.REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS,
