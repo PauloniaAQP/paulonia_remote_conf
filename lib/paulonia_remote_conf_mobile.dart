@@ -20,17 +20,22 @@ class PauloniaRemoteConfService {
   /// app is running on release.
   /// Set [expirationTimeInHours] with the time that the functions stores the values
   /// in cache.
-  static Future<void> initRemoteConf(Map<String, dynamic> defaultValues,
-      {int expirationTimeInHours = PauloniaRemoteConfConstants
-          .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS}) async {
-    _remoteConfig = await RemoteConfig.instance;
+  static Future<void> initRemoteConf(
+    Map<String, dynamic> defaultValues, {
+    int expirationTimeInHours = PauloniaRemoteConfConstants.REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS,
+    int fetchTimeout = PauloniaRemoteConfConstants.REMOTE_CONF_DEFAULT_FETCH_TIMEOUT_IN_SECONDS,
+  }) async {
+    _remoteConfig = RemoteConfig.instance;
     _defaultValues = defaultValues;
     await _remoteConfig.setDefaults(_defaultValues);
+    await _remoteConfig.setConfigSettings(RemoteConfigSettings(
+      fetchTimeout: Duration(seconds: fetchTimeout),
+      minimumFetchInterval: Duration(hours: expirationTimeInHours),
+    ));
     if (PUtils.isOnRelease() && (await PUtils.checkNetwork())) {
-      await _remoteConfig.fetch(
-          expiration: Duration(hours: expirationTimeInHours));
+      await _remoteConfig.fetch();
     }
-    await _remoteConfig.activateFetched();
+    await _remoteConfig.activate();
   }
 
   /// Get the value of [keyName] with [rcType]

@@ -17,11 +17,16 @@ class PauloniaRemoteConf {
   /// app is running on release.
   /// Set [expirationTimeInHours] with the time that the functions stores the values
   /// in cache (only for mobile).
-  static Future<void> init(Map<String, dynamic> defaultValues,
-      {int expirationTimeInHours = PauloniaRemoteConfConstants
-          .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS}) {
-    return PauloniaRemoteConfService.initRemoteConf(defaultValues,
-        expirationTimeInHours: expirationTimeInHours);
+  static Future<void> init(
+    Map<String, dynamic> defaultValues, {
+    int expirationTimeInHours = PauloniaRemoteConfConstants.REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS,
+    int fetchTimeoutInSeconds = PauloniaRemoteConfConstants.REMOTE_CONF_DEFAULT_FETCH_TIMEOUT_IN_SECONDS,
+  }) {
+    return PauloniaRemoteConfService.initRemoteConf(
+      defaultValues,
+      expirationTimeInHours: expirationTimeInHours,
+      fetchTimeout: fetchTimeoutInSeconds,
+    );
   }
 
   /// Get the value of [keyName] with [rcType]
