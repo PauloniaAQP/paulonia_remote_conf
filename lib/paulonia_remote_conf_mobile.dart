@@ -24,8 +24,10 @@ class PauloniaRemoteConfService {
   /// there is a network problem during fetch.
   static Future<void> initRemoteConf(
     Map<String, dynamic> defaultValues, {
-    int expirationTimeInHours = PauloniaRemoteConfConstants.REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS,
-    int fetchTimeout = PauloniaRemoteConfConstants.REMOTE_CONF_DEFAULT_FETCH_TIMEOUT_IN_SECONDS,
+    int expirationTimeInHours = PauloniaRemoteConfConstants
+        .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS,
+    int fetchTimeout = PauloniaRemoteConfConstants
+        .REMOTE_CONF_DEFAULT_FETCH_TIMEOUT_IN_SECONDS,
   }) async {
     _remoteConfig = RemoteConfig.instance;
     _defaultValues = defaultValues;
