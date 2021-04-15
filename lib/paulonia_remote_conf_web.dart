@@ -61,4 +61,9 @@ class PauloniaRemoteConfService {
   static PRemoteConfigValue getValue(String keyName) {
     return PRemoteConfigValue(_remoteConfig.getValue(keyName));
   }
+
+  /// Function to initialize remote config in test environment
+  static void initRemoteConfForTest(Map<String, dynamic> defaultValues) {
+    _defaultValues = defaultValues;
+  }
 }
