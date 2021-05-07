@@ -1,3 +1,7 @@
+## [0.1.1-dev.2]
+
+- Dependencies updated
+
 ## [0.1.1-dev.1]
 
 - Function `initRemoteConfForTest()` added
