@@ -1,5 +1,6 @@
 library paulonia_remote_conf;
 
+import 'package:flutter/cupertino.dart';
 import 'package:paulonia_remote_conf/constants.dart';
 import 'package:paulonia_remote_conf/remote_conf_value.dart';
 import 'package:paulonia_remote_conf/paulonia_remote_conf_mobile.dart'
@@ -17,11 +18,20 @@ class PauloniaRemoteConf {
   /// app is running on release.
   /// Set [expirationTimeInHours] with the time that the functions stores the values
   /// in cache (only for mobile).
-  static Future<void> init(Map<String, dynamic> defaultValues,
-      {int expirationTimeInHours = PauloniaRemoteConfConstants
-          .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS}) {
-    return PauloniaRemoteConfService.initRemoteConf(defaultValues,
-        expirationTimeInHours: expirationTimeInHours);
+  /// Set [fetchTimeoutInSeconds] with the time that the functions will wait if
+  /// there is a network problem during fetch.
+  static Future<void> init(
+    Map<String, dynamic> defaultValues, {
+    int expirationTimeInHours = PauloniaRemoteConfConstants
+        .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS,
+    int fetchTimeoutInSeconds = PauloniaRemoteConfConstants
+        .REMOTE_CONF_DEFAULT_FETCH_TIMEOUT_IN_SECONDS,
+  }) {
+    return PauloniaRemoteConfService.initRemoteConf(
+      defaultValues,
+      expirationTimeInHours: expirationTimeInHours,
+      fetchTimeout: fetchTimeoutInSeconds,
+    );
   }
 
   /// Get the value of [keyName] with [rcType]
@@ -36,5 +46,11 @@ class PauloniaRemoteConf {
   /// This function returns the value without any conversion.
   static PRemoteConfigValue getValue(String keyName) {
     return PauloniaRemoteConfService.getValue(keyName);
+  }
+
+  /// Function to initialize remote config in test environment
+  @visibleForTesting
+  static void initRemoteConfForTest(Map<String, dynamic> defaultValues) {
+    PauloniaRemoteConfService.initRemoteConfForTest(defaultValues);
   }
 }

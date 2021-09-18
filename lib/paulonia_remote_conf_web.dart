@@ -8,7 +8,7 @@ class PauloniaRemoteConfService {
   static final _remoteConfig = fb.remoteConfig();
 
   /// Map of default values
-  static Map<String, dynamic> _defaultValues;
+  static late Map<String, dynamic> _defaultValues;
 
   /// Get the map of default values
   static Map<String, dynamic> get defaultValues => _defaultValues;
@@ -19,9 +19,14 @@ class PauloniaRemoteConfService {
   /// [defaultValues]. The function fetch the values from the server if the
   /// app is running on release.
   /// In web, [expirationTimeInHours] is useless.
-  static Future<void> initRemoteConf(Map<String, dynamic> defaultValues,
-      {int expirationTimeInHours = PauloniaRemoteConfConstants
-          .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS}) async {
+  /// In web, [fetchTimeout] is useless.
+  static Future<void> initRemoteConf(
+    Map<String, dynamic> defaultValues, {
+    int expirationTimeInHours = PauloniaRemoteConfConstants
+        .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS,
+    int fetchTimeout = PauloniaRemoteConfConstants
+        .REMOTE_CONF_DEFAULT_FETCH_TIMEOUT_IN_SECONDS,
+  }) async {
     _defaultValues = defaultValues;
     await _remoteConfig.ensureInitialized();
     _remoteConfig.defaultConfig = _defaultValues;
@@ -40,9 +45,9 @@ class PauloniaRemoteConfService {
       case PRCType.STRING:
         return _remoteConfig.getString(keyName);
       case PRCType.INT:
-        return _remoteConfig.getNumber(keyName)?.toInt();
+        return _remoteConfig.getNumber(keyName).toInt();
       case PRCType.DOUBLE:
-        return _remoteConfig.getNumber(keyName)?.toDouble();
+        return _remoteConfig.getNumber(keyName).toDouble();
       case PRCType.BOOL:
         return _remoteConfig.getBoolean(keyName);
       default:
@@ -55,5 +60,10 @@ class PauloniaRemoteConfService {
   /// This function returns the value without any conversion.
   static PRemoteConfigValue getValue(String keyName) {
     return PRemoteConfigValue(_remoteConfig.getValue(keyName));
+  }
+
+  /// Function to initialize remote config in test environment
+  static void initRemoteConfForTest(Map<String, dynamic> defaultValues) {
+    _defaultValues = defaultValues;
   }
 }

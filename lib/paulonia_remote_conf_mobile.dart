@@ -5,10 +5,10 @@ import 'package:paulonia_utils/paulonia_utils.dart';
 
 class PauloniaRemoteConfService {
   /// Remote configuration instance
-  static RemoteConfig _remoteConfig;
+  static late RemoteConfig _remoteConfig;
 
   /// Map of default values
-  static Map<String, dynamic> _defaultValues;
+  static late Map<String, dynamic> _defaultValues;
 
   /// Get the map of default values
   static Map<String, dynamic> get defaultValues => _defaultValues;
@@ -20,17 +20,26 @@ class PauloniaRemoteConfService {
   /// app is running on release.
   /// Set [expirationTimeInHours] with the time that the functions stores the values
   /// in cache.
-  static Future<void> initRemoteConf(Map<String, dynamic> defaultValues,
-      {int expirationTimeInHours = PauloniaRemoteConfConstants
-          .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS}) async {
-    _remoteConfig = await RemoteConfig.instance;
+  /// Set [fetchTimeout] with the time that the functions will wait if
+  /// there is a network problem during fetch.
+  static Future<void> initRemoteConf(
+    Map<String, dynamic> defaultValues, {
+    int expirationTimeInHours = PauloniaRemoteConfConstants
+        .REMOTE_CONF_DEFAULT_EXPIRATION_TIME_IN_HOURS,
+    int fetchTimeout = PauloniaRemoteConfConstants
+        .REMOTE_CONF_DEFAULT_FETCH_TIMEOUT_IN_SECONDS,
+  }) async {
+    _remoteConfig = RemoteConfig.instance;
     _defaultValues = defaultValues;
     await _remoteConfig.setDefaults(_defaultValues);
+    await _remoteConfig.setConfigSettings(RemoteConfigSettings(
+      fetchTimeout: Duration(seconds: fetchTimeout),
+      minimumFetchInterval: Duration(hours: expirationTimeInHours),
+    ));
     if (PUtils.isOnRelease() && (await PUtils.checkNetwork())) {
-      await _remoteConfig.fetch(
-          expiration: Duration(hours: expirationTimeInHours));
+      await _remoteConfig.fetch();
     }
-    await _remoteConfig.activateFetched();
+    await _remoteConfig.activate();
   }
 
   /// Get the value of [keyName] with [rcType]
@@ -57,5 +66,10 @@ class PauloniaRemoteConfService {
   /// This function returns the value without any conversion.
   static PRemoteConfigValue getValue(String keyName) {
     return PRemoteConfigValue(_remoteConfig.getValue(keyName));
+  }
+
+  /// Function to initialize remote config in test environment
+  static void initRemoteConfForTest(Map<String, dynamic> defaultValues) {
+    _defaultValues = defaultValues;
   }
 }
