@@ -8,7 +8,7 @@ class PauloniaRemoteConfService {
   static final _remoteConfig = fb.remoteConfig();
 
   /// Map of default values
-  static Map<String, dynamic> _defaultValues;
+  static late Map<String, dynamic> _defaultValues;
 
   /// Get the map of default values
   static Map<String, dynamic> get defaultValues => _defaultValues;
@@ -45,9 +45,9 @@ class PauloniaRemoteConfService {
       case PRCType.STRING:
         return _remoteConfig.getString(keyName);
       case PRCType.INT:
-        return _remoteConfig.getNumber(keyName)?.toInt();
+        return _remoteConfig.getNumber(keyName).toInt();
       case PRCType.DOUBLE:
-        return _remoteConfig.getNumber(keyName)?.toDouble();
+        return _remoteConfig.getNumber(keyName).toDouble();
       case PRCType.BOOL:
         return _remoteConfig.getBoolean(keyName);
       default:

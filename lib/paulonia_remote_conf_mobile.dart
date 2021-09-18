@@ -5,10 +5,10 @@ import 'package:paulonia_utils/paulonia_utils.dart';
 
 class PauloniaRemoteConfService {
   /// Remote configuration instance
-  static RemoteConfig _remoteConfig;
+  static late RemoteConfig _remoteConfig;
 
   /// Map of default values
-  static Map<String, dynamic> _defaultValues;
+  static late Map<String, dynamic> _defaultValues;
 
   /// Get the map of default values
   static Map<String, dynamic> get defaultValues => _defaultValues;

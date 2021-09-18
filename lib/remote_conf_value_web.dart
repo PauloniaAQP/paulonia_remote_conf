@@ -4,9 +4,9 @@ class PRemoteConfigValueService {
   static bool asBool(fb.RemoteConfigValue value) => value.asBoolean();
 
   static double asDouble(fb.RemoteConfigValue value) =>
-      value.asNumber()?.toDouble();
+      value.asNumber().toDouble();
 
-  static int asInt(fb.RemoteConfigValue value) => value.asNumber()?.toInt();
+  static int asInt(fb.RemoteConfigValue value) => value.asNumber().toInt();
 
   static String asString(fb.RemoteConfigValue value) => value.asString();
 }
