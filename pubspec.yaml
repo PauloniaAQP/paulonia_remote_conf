@@ -2,7 +2,7 @@ name: paulonia_remote_conf
 description: Flutter package for Firebase remote configuration in Mobile and
   Web. Wraps the Firebase remote config package for mobile and the Firebase
   package for web.
-version: 0.2.0
+version: 0.3.0
 homepage: https://paulonia.dev
 repository: https://github.com/PauloniaAQP/paulonia_remote_conf
 
