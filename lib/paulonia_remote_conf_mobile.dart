@@ -5,7 +5,7 @@ import 'package:paulonia_utils/paulonia_utils.dart';
 
 class PauloniaRemoteConfService {
   /// Remote configuration instance
-  static late RemoteConfig _remoteConfig;
+  static late FirebaseRemoteConfig _remoteConfig;
 
   /// Map of default values
   static late Map<String, dynamic> _defaultValues;
@@ -29,7 +29,7 @@ class PauloniaRemoteConfService {
     int fetchTimeout = PauloniaRemoteConfConstants
         .REMOTE_CONF_DEFAULT_FETCH_TIMEOUT_IN_SECONDS,
   }) async {
-    _remoteConfig = RemoteConfig.instance;
+    _remoteConfig = FirebaseRemoteConfig.instance;
     _defaultValues = defaultValues;
     await _remoteConfig.setDefaults(_defaultValues);
     await _remoteConfig.setConfigSettings(RemoteConfigSettings(
