@@ -3,8 +3,7 @@ library paulonia_remote_conf;
 import 'package:flutter/cupertino.dart';
 import 'package:paulonia_remote_conf/constants.dart';
 import 'package:paulonia_remote_conf/remote_conf_value.dart';
-import 'package:paulonia_remote_conf/paulonia_remote_conf_mobile.dart'
-    if (dart.library.html) 'package:paulonia_remote_conf/paulonia_remote_conf_web.dart';
+import 'package:paulonia_remote_conf/paulonia_remote_conf_service.dart';
 
 class PauloniaRemoteConf {
   /// Get the map of default values
